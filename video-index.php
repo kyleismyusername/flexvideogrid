@@ -3,7 +3,7 @@
  * Plugin Name: Vue Video Index App
  * Description: Custom VueJS plugin to list and filter videos post type.
  * Version: 0.1
- * GitHub Plugin URI: https://github.com/afragen/github-updater
+ * GitHub Plugin URI: https://github.com/kyleismyusername/flexvideogrid
  */
 
 // Vue scripts
