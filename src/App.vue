@@ -48,7 +48,7 @@
                             </vue-aspect-ratio>
                         </div>
                         <div
-                            class="my-3 video-title"
+                            class="my-4 video-title"
                             :href="post.link"
                             v-html="post.title"
                         ></div>
