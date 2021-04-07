@@ -154,22 +154,24 @@ export default {
         padding: 0;
     }
     .paginate-links {
-        li a {
-            user-select: none;
-            display: inline-block;
-            margin-right: 0.5rem;
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
-            padding-left: 1rem;
-            padding-right: 1rem;
-            border-width: 1px;
-            border-color: #e2e8f0;
-            cursor: pointer;
-            text-align: center;
-            &:hover {
-                background-color: #23b3ae;
-                border-color: #23b3ae;
-                color: #ffffff;
+        li {
+            a {
+                user-select: none;
+                display: inline-block;
+                margin-right: 0.5rem;
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                border-width: 1px;
+                border-color: #e2e8f0;
+                cursor: pointer;
+                text-align: center;
+                &:hover {
+                    background-color: #23b3ae;
+                    border-color: #23b3ae;
+                    color: #ffffff;
+                }
             }
         }
         .right-arrow a,
@@ -218,6 +220,7 @@ export default {
     .video-title {
         color: #4a4a4a;
         font-size: 14px;
+        font-weight: 400;
     }
     .divider {
         border-bottom: 1px solid #ecb558;
