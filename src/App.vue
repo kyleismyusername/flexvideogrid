@@ -1,75 +1,40 @@
 <template>
-    <section id="video">
-        <div
-            class="flex flex-col py-2 md:flex-row md:justify-between md:items-center"
-        >
-            <div class="font-serif text-lg">
-                Video &amp; Webinar Archive
-            </div>
-            <div class="w-full my-2 search-filter md:w-1/2 lg:w-1/4">
-                <div class="relative w-full">
-                    <input
-                        type="text"
-                        class="w-full h-10 p-2 pr-12 border rounded-none border-smoke-300 focus:border-verdigris-500 focus:outline-none"
-                        name="searchQuery"
-                        placeholder="Search by keyword or phrase"
-                        v-model="searchfilter"
-                    />
-                    <span
-                        class="absolute top-0 right-0 flex items-center justify-center w-10 h-10 px-4 text-verdigris-500 flex-column"
-                    >
-                        <i class="my-auto fa fa-search"></i>
-                    </span>
-                </div>
-            </div>
+  <section id="video">
+    <div class="flex flex-col py-2 md:flex-row md:justify-between md:items-center">
+      <div class="font-serif text-lg">
+        Video &amp; Webinar Archive
+      </div>
+      <div class="w-full my-2 search-filter md:w-1/2 lg:w-1/4">
+        <div class="relative w-full">
+          <input type="text" class="w-full h-10 p-2 pr-12 border rounded-none border-smoke-300 focus:border-verdigris-500 focus:outline-none" name="searchQuery" placeholder="Search by keyword or phrase" v-model="searchfilter" />
+          <span class="absolute top-0 right-0 flex items-center justify-center w-10 h-10 px-4 text-verdigris-500 flex-column">
+            <i class="my-auto fa fa-search"></i>
+          </span>
         </div>
-        <div class="divider"></div>
-        <paginate
-            name="paged"
-            :list="filteredposts"
-            :per="8"
-            :key="searchfilter"
-        >
-            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-                <div v-for="post in paginated('paged')" :key="post.id">
-                    <a class="thumb" :href="post.link" :alt="post.title">
-                        <div class="thumb-border">
-                            <vue-aspect-ratio ar="16:9">
-                                <img
-                                    :src="post.img"
-                                    alt=""
-                                    class="object-cover w-full h-full"
-                                />
-                                <div
-                                    class="flex items-center justify-center video-icon"
-                                >
-                                    <i class="fa fa-play-circle"></i>
-                                </div>
-                            </vue-aspect-ratio>
-                        </div>
-                        <div
-                            class="my-4 video-title"
-                            :href="post.link"
-                            v-html="post.title"
-                        ></div>
-                    </a>
-                </div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <paginate name="paged" :list="filteredposts" :per="8" :key="searchfilter">
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div v-for="post in paginated('paged')" :key="post.id">
+          <a class="thumb" :href="post.link" :alt="post.title">
+            <div class="thumb-border">
+              <vue-aspect-ratio ar="16:9">
+                <img :src="post.img" alt="" class="object-cover w-full h-full" />
+                <!-- <div class="flex items-center justify-center video-icon">
+                  <i class="fa fa-play-circle"></i>
+                </div> -->
+              </vue-aspect-ratio>
             </div>
-        </paginate>
-        <div class="py-8">
-            <paginate-links
-                class="flex flex-row justify-center"
-                v-show="filteredposts.length > 8"
-                for="paged"
-                :show-step-links="true"
-                :step-links="{
-                    next: 'Next',
-                    prev: 'Previous',
-                }"
-            >
-            </paginate-links>
+            <div class="my-4 video-title" :href="post.link" v-html="post.title"></div>
+          </a>
         </div>
-    </section>
+      </div>
+    </paginate>
+    <div class="py-8">
+      <paginate-links class="flex flex-row justify-center" v-show="filteredposts.length > 8" for="paged" :show-step-links="true" :step-links="{next: 'Next', prev: 'Previous'}"></paginate-links>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -86,14 +51,13 @@ export default {
         paginate: ['paged'],
     }),
     created() {
-        // let url = window.location.hostname
         async function getPosts() {
             const response = await fetch('/wp-json/custom/resources')
             let posts = await response.json()
-            return posts.filter(post => post.type === 'videos')
+            return posts.filter((post) => post.type === 'videos')
         }
-        getPosts().then(data => {
-            data = data.sort(function(a, b) {
+        getPosts().then((data) => {
+            data = data.sort(function (a, b) {
                 return new Date(b.date) - new Date(a.date)
             })
             this.allposts = data
@@ -115,7 +79,7 @@ export default {
             if (!this.searchfilter) {
                 return this.allposts
             }
-            return this.allposts.filter(post => {
+            return this.allposts.filter((post) => {
                 if (!this.searchfilter) {
                     return true
                 }
@@ -132,7 +96,7 @@ export default {
         },
         posttitles() {
             let titles = []
-            titles = this.filteredposts.map(post => post.title)
+            titles = this.filteredposts.map((post) => post.title)
             return titles
         },
     },
